@@ -1114,7 +1114,7 @@ can be one steps file for all features for a particular object
     end
     ```
 
-* Use [fabricators](http://fabricationgem.org/) to create test
+* Use [factory_girl](https://github.com/thoughtbot/factory_girl/) to create test
   objects.
 * Make heavy use of mocks and stubs
 
@@ -1139,17 +1139,17 @@ can be one steps file for all features for a particular object
 
     ```Ruby
     # use this:
-    let(:article) { Fabricate(:article) }
+    let(:article) { FactoryGirl.build_stubbed(:article) }
 
     # ... instead of this:
-    before(:each) { @article = Fabricate(:article) }
+    before(:each) { @article = FactoryGirl.build_stubbed(:article) }
     ```
 
 * Use `subject` when possible
 
     ```Ruby
     describe Article do
-      subject { Fabricate(:article) }
+      subject { FactoryGirl.build_stubbed(:article) }
 
       it 'is not published on creation' do
         subject.should_not be_published
@@ -1162,7 +1162,7 @@ can be one steps file for all features for a particular object
     ```Ruby
     # bad
     describe Article do
-      before { @article = Fabricate(:article) }
+      before { @article = FactoryGirl.build_stubbed(:article) }
 
       it 'is not published on creation' do
         @article.should_not be_published
@@ -1171,7 +1171,7 @@ can be one steps file for all features for a particular object
 
     # good
     describe Article do
-      let(:article) { Fabricate(:article) }
+      let(:article) { FactoryGirl.build_stubbed(:article) }
       specify { article.should_not be_published }
     end
     ```
@@ -1182,7 +1182,7 @@ can be one steps file for all features for a particular object
     ```Ruby
     # bad
     describe Article do
-      subject { Fabricate(:article) }
+      subject { FactoryGirl.build_stubbed(:article) }
 
       it 'has the current date as creation date' do
         subject.creation_date.should == Date.today
@@ -1191,7 +1191,7 @@ can be one steps file for all features for a particular object
 
     # good
     describe Article do
-      subject { Fabricate(:article) }
+      subject { FactoryGirl.build_stubbed(:article) }
       its(:creation_date) { should == Date.today }
     end
     ```
@@ -1418,13 +1418,13 @@ can be one steps file for all features for a particular object
 ### Models
 
 * Do not mock the models in their own specs.
-* Use fabrication to make real objects.
+* Use Use [factory_girl](https://github.com/thoughtbot/factory_girl/) to make real objects.
 * It is acceptable to mock other models or child objects.
 * Create the model for all examples in the spec to avoid duplication.
 
     ```Ruby
     describe Article do
-      let(:article) { Fabricate(:article) }
+      let(:article) { FactoryGirl.build_stubbed(:article) }
     end
     ```
 
@@ -1479,7 +1479,7 @@ which should be validated. Using `be_valid` does not guarantee that the problem
     describe Article do
       describe '#title' do
         it 'is unique' do
-          another_article = Fabricate.build(:article, title: article.title)
+          another_article = FactoryGirl.build(:article, title: article.title)
           article.should have(1).error_on(:title)
         end
       end
