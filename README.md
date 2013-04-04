@@ -1037,9 +1037,14 @@ can be one steps file for all features for a particular object
       }
     end
     ```
-* Always use the Capybara negative matchers instead of should_not with positive,
-they will retry the match for given timeout allowing you to test ajax actions.
-[See Capybara's README for more explanation](https://github.com/jnicklas/capybara)
+* Always use should_not with positive Capybara matchers instead of negative Capybara matchers.
+   ```Ruby
+   # bad
+   page.should have_no_xpath('a')
+
+   # good   
+   page.should_not have_xpath('a')
+   ```
 
 ## RSpec
 
