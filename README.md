@@ -72,8 +72,6 @@ Translations of the guide are available in the following languages:
         ```
 
 * Keep configuration that's applicable to all environments in the `config/application.rb` file.
-* Create an additional `staging` environment that closely resembles
-the `production` one.
 
 ## Routing
 
